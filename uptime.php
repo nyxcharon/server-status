@@ -66,3 +66,4 @@ $array['online'] = '<div class="progress">
 </div>';
 
 echo json_encode($array);
+?>
