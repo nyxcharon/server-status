@@ -1,0 +1,27 @@
+#! /bin/bash
+#TODO: % free hdd
+
+FILE="/home/nyxcharon/status"
+MEMFREE=$(cat /proc/meminfo | grep MemFree | cut -d" " -f 11)
+MEMTOTAL=$(cat /proc/meminfo | grep MemTotal | cut -d" " -f 10)
+HDDTOTAL=$(df -h | grep /dev/ | cut -d" " -f7)
+HDDUSED=$(df -h | grep /dev/ | cut -d" " -f9)
+HDDAVAIL=$(df -h | grep /dev/ | cut -d" " -f11)
+HDDPERC=$(df -h | grep /dev/ | cut -d' ' -f13)
+CPULOAD=$(uptime | cut -d" " -f 16 )
+UPTIME=$(uptime | cut -d" " -f4,5 | sed  's/,/ /g')
+#IPADDR=$(curl -s http://ifconfig.me)
+HOSTNAME=$(echo $HOSTNAME)
+
+echo $MEMFREE>$FILE
+echo $MEMTOTAL>>$FILE
+echo $HDDTOTAL>>$FILE
+echo $HDDUSED>>$FILE
+echo $HDDAVAIL>>$FILE
+echo $HDDPERC>>$FILE
+echo $CPULOAD>>$FILE
+echo $UPTIME>>$FILE
+#echo $IPADDR>>$FILE
+echo $HOSTNAME>>$FILE
+
+cat $FILE
